@@ -1,2 +1,2 @@
 @echo off
-call "%~dp0..\..\test\core\path_resolve.bat" %*
+call "%~dp0..\..\test\lib\path_resolve.bat" %*

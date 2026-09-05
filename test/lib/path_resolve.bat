@@ -1,9 +1,13 @@
 @echo off
 setlocal EnableDelayedExpansion
 
+set "PATH_MGR=%~dp0..\..\lib\path_resolver.bat"
+set "CONFIG_MGR=%~dp0..\..\lib\config_manager.bat"
+set "CONFIG_FILE=%~dp0..\..\tool\windk\.cfg"
+
 :: Canonicalize paths relative to the current script directory (%~dp0)
-call "%~dp0..\..\core\path_resolver.bat" resolve "%~dp0..\..\core\config_manager.bat" CONFIG_MGR
-call "%~dp0..\..\core\path_resolver.bat" resolve "%~dp0..\..\tools\windk\.cfg" CONFIG_FILE
+call "%PATH_MGR%" resolve "%CONFIG_MGR%" CONFIG_MGR
+call "%PATH_MGR%" resolve "%CONFIG_FILE%" CONFIG_FILE
 
 if not exist "!CONFIG_MGR!" (
     echo [ERROR] Config manager missing at: "!CONFIG_MGR!"
