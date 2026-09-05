@@ -57,27 +57,6 @@ create=..\lib\commands\create.bat
 c=@:create
 ```
 
-## Roadmap
-
-- [x] INI based command routing
-- [x] ANSI formatting
-- [x] Absolute path resolution
-- [ ] String parsing
-- [ ] Windk v0.1
-  - [ ] config
-  - [ ] create
-  - [ ] delete
-  - [ ] archive
-  - [ ] unarchive
-  - [ ] rename
-  - [ ] list
-  - [ ] install
-  - [ ] update
-  - [ ] env
-  - [ ] code
-- [ ] Test cases for all .bat scripts
-- [ ] Documentation
-
 ## License
 
 MIT License
