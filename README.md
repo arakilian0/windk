@@ -26,7 +26,7 @@ Writing custom command-line utilities in native `cmd.exe` usually turns into a m
      * Converts relative paths into absolute Win32 target paths.
      * Normalizes trailing backslashes and resolves parent directory traversals (`..\`).
    * **`core/config_manager.bat`** (INI Parser & State Registry):
-     * Iterates dynamically over `.cfg/.ini` section headers to register configuration keys into the framework's execution scope.
+     * Iterates dynamically over `.cfg` / `.ini` section headers to register configuration keys into the framework's execution scope.
      * Evaluates `@:` alias pointers (e.g., `h=@:help`), resolving shortcut keys directly to their primary script target without duplicating target strings.
      * Uses the path resolver to expand relative script locations into fully qualified paths.
    * **`core/ansi_codes.bat`** (VT100 Terminal Styling Subsystem):
