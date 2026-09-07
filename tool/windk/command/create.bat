@@ -3,7 +3,6 @@ setlocal EnableDelayedExpansion
 
 set "TARGET_NAME="
 set "FLAGS="
-set "EXTRA_ARGS="
 
 : ==========
 : PARSE ARGS
@@ -24,18 +23,9 @@ if "!FIRST_CHAR!"=="-" goto :save_flag
 if "!FIRST_CHAR!"=="/" goto :save_flag
 
 :: --- POSITIONAL ARGUMENT HANDLING ---
-:: FIRST non-flag becomes TARGET_NAME
+:: FIRST non-flag becomes TARGET_NAME (subsequent non-flags are ignored)
 if not defined TARGET_NAME (
     set "TARGET_NAME=%~1"
-    shift
-    goto :parse_args
-)
-
-:: Subsequent non-flags go into EXTRA_ARGS
-if defined EXTRA_ARGS (
-    set "EXTRA_ARGS=!EXTRA_ARGS! "%~1""
-) else (
-    set "EXTRA_ARGS="%~1""
 )
 shift
 goto :parse_args
@@ -69,9 +59,6 @@ echo ==========================================
 echo Target Name    : !TARGET_NAME!
 echo Verbose Mode   : !VERBOSE!
 echo Captured Flags : !FLAGS!
-if defined EXTRA_ARGS (
-    echo Extra Positionals: !EXTRA_ARGS!
-)
 echo ==========================================
 
 exit /b 0
