@@ -5,7 +5,7 @@ setlocal EnableDelayedExpansion
 set "PATH_MGR=%~dp0..\..\lib\path_resolver.bat"
 set "COLOR_MGR=%~dp0..\..\lib\ansi_codes.bat"
 set "CONFIG_MGR=%~dp0..\..\lib\config_manager.bat"
-set "CONFIG_FILE=%~dp0.cfg"
+set "CONFIG_FILE=%~dp0settings.cfg"
 
 :: Canonicalize paths relative to the current script directory (%~dp0)
 call "%PATH_MGR%" resolve "%CONFIG_MGR%" CONFIG_MGR

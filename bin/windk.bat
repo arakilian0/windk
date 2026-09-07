@@ -3,7 +3,7 @@
 setlocal EnableExtensions EnableDelayedExpansion
 
 :: Forward all arguments to the tool dispatcher
-call "%~dp0..\tool\windk\cli.bat" %*
+call "%~dp0..\tool\windk\windk.bat" %*
 
 :: Store return code from dispatcher
 set "EXIT_CODE=%ERRORLEVEL%"
