@@ -1,10 +1,10 @@
 # Windk Tool Directory (`/tool`)
 
-This directory contains the isolated implementations for all standalone tools, utilities, and CLI entry points in the suite.
+This directory contains the isolated implementations for all standalone tools, utilities, and CLI entry points.
 
 ---
 
-## Micro-Package Architecture Rules
+## Architecture Rules
 
 Because the utilities housed here are independent, **strict isolation must be maintained**:
 
