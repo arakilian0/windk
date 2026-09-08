@@ -1,9 +1,10 @@
 @echo off
 :: bin/windk.bat - Entry Proxy & Scope Guard
-setlocal EnableExtensions EnableDelayedExpansion
+setlocal EnableExtensions
+setlocal EnableDelayedExpansion
 
 :: Forward all arguments to the tool dispatcher
-call "%~dp0..\tool\windk\windk.bat" %*
+call "%~dp0..\tool\%~n0\%~nx0" %*
 
 :: Store return code from dispatcher
 set "EXIT_CODE=%ERRORLEVEL%"
