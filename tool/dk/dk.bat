@@ -109,49 +109,28 @@ set "_OUTPUT=%~1"
 shift
 goto parse_loop
 
-:: MAIN PROCESS
-:: ===============================================================
+:: THE MAIN PROCESS
+:: AFTER ALL ARGUMENT PARSING IS COMPLETE, WE ENTER THE MAIN PROCESS.
+:: FROM HERE WE DELEGATE TASKS TO SUBCOMMANDS AND FLAGS.
+:: ==================================================================
 :main
 if not defined _COMMAND (
-    if defined _HELP goto command_help
+    if defined _HELP call "%~dp0tool\%_SCRIPT%\command\help.bat" & goto end
     if defined _VERSION goto command_version
     echo %_SCRIPT%: no command provided. See '%_SCRIPT% --help'.
     goto end
 )
 
-if "!_COMMAND!" == "create" goto command_create
-if "!_COMMAND!" == "delete" goto command_delete
+if "!_COMMAND!" == "create" call "%~dp0tool\%_SCRIPT%\command\!_COMMAND!.bat" & goto end
+if "!_COMMAND!" == "delete" call "%~dp0tool\%_SCRIPT%\command\!_COMMAND!.bat" & goto end
 
 echo %_SCRIPT%: '!_COMMAND!' is not a %_SCRIPT% command. See '%_SCRIPT% --help'.
-goto end
-
-:: COMMAND (HELP)
-:: ===============================================================
-:command_help
-echo in the help command
 goto end
 
 :: COMMAND (VERSION)
 :: ===============================================================
 :command_version
 echo %_SCRIPT% version %_VERSION_%
-goto end
-
-:: COMMAND (CREATE)
-:: ===============================================================
-:command_create
-echo in the create command
-echo "!_TARGET!"
-echo "!_OUTPUT!"
-echo "!_VERBOSE!"
-echo "!_FORCE!"
-goto end
-
-:: COMMAND (DELETE)
-:: ===============================================================
-:command_delete
-echo in the delete command
-echo "!_TARGET!"
 goto end
 
 :: THE END
