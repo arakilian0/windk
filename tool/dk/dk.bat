@@ -2,7 +2,7 @@
 setlocal EnableDelayedExpansion
 
 :: HARD CODED VARIABLES
-set "_VERSION_=0.2"
+set "_VERSION_NUMBER=0.2"
 set "_SCRIPT=%~n0"
 
 :: DYNAMIC VARIABLES
@@ -10,9 +10,9 @@ set "_COMMAND="
 set "_TARGET="
 set "_HELP="
 set "_FORCE="
+set "_VERSION="
 set "_VERBOSE="
 set "_TEMPLATE="
-set "_OUTPUT="
 
 :: LOOP THROUGH ALL ARGUMENTS PASSED
 :: ===============================================================
@@ -45,9 +45,8 @@ if "%_SECOND%"=="-" (
     if "%~1"=="--verbose"   set "_VERBOSE=true"
     if "%~1"=="--version"   set "_VERSION=true"
     if "%~1"=="--help"      set "_HELP=true"
-
+    :: Value consuming long flags
     if "%~1"=="--template"  goto parse_flag_template
-    if "%~1"=="--output"    goto parse_flag_output
 
     shift
     goto parse_loop
@@ -75,7 +74,6 @@ if "%_CHAR%"=="h"  set "_HELP=true" & goto parse_short_chars
 
 :: Short flags that consume the next argument
 if "%_CHAR%"=="t"  goto parse_flag_template
-if "%_CHAR%"=="o"  goto parse_flag_output
 
 goto parse_short_chars
 
@@ -94,21 +92,6 @@ set "_TEMPLATE=%~1"
 shift
 goto parse_loop
 
-:: FLAG (OUTPUT)
-:: ===============================================================
-:parse_flag_output
-if not "%_FLAGS%"=="" (
-    :: Value attached to flag (e.g., -oout.txt)
-    set "_OUTPUT=%_FLAGS%"
-    set "_FLAGS="
-    shift
-    goto parse_loop
-)
-shift
-set "_OUTPUT=%~1"
-shift
-goto parse_loop
-
 :: THE MAIN PROCESS
 :: AFTER ALL ARGUMENT PARSING IS COMPLETE, WE ENTER THE MAIN PROCESS.
 :: FROM HERE WE DELEGATE TASKS TO SUBCOMMANDS AND FLAGS.
@@ -117,6 +100,7 @@ goto parse_loop
 if not defined _COMMAND (
     if defined _HELP call "%~dp0tool\%_SCRIPT%\command\help.bat" & goto end
     if defined _VERSION goto command_version
+    :: ERROR - NO COMMAND
     echo %_SCRIPT%: no command provided. See '%_SCRIPT% --help'.
     goto end
 )
@@ -124,13 +108,14 @@ if not defined _COMMAND (
 if "!_COMMAND!" == "create" call "%~dp0tool\%_SCRIPT%\command\!_COMMAND!.bat" & goto end
 if "!_COMMAND!" == "delete" call "%~dp0tool\%_SCRIPT%\command\!_COMMAND!.bat" & goto end
 
+:: ERROR - NOT A COMMAND
 echo %_SCRIPT%: '!_COMMAND!' is not a %_SCRIPT% command. See '%_SCRIPT% --help'.
 goto end
 
 :: COMMAND (VERSION)
 :: ===============================================================
 :command_version
-echo %_SCRIPT% version %_VERSION_%
+echo %_SCRIPT% version %_VERSION_NUMBER%
 goto end
 
 :: THE END
